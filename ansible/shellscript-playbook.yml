@@ -1,6 +1,6 @@
 ---
 - name: Execute the shellscript 
-  hosts: worker1
+  hosts: workers
   tasks: 
     - name: Create a directory 
       file: 
