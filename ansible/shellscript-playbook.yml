@@ -1,0 +1,19 @@
+---
+- name: Execute the shellscript 
+  hosts: worker1
+  tasks: 
+    - name: Create a directory 
+      file: 
+        path: /home/ubuntu/shellscript
+        state: directory
+        mode: 0755
+    - name: Copy the shellscript to the remote server 
+      copy: 
+        src: ./shellscript/testing.sh
+        dest: /home/ubuntu/shellscript/
+        mode: 0755
+
+    - name: Execute the shellscript 
+      shell: /bin/bash /home/ubuntu/shellscript/testing.sh  
+      args:
+        creates: /home/ubuntu/shellscript/testing.sh
