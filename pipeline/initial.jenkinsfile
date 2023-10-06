@@ -19,9 +19,29 @@ pipeline{
             steps{
                script{
                      PROPERTIES = loadProperties()
-                     echo "Username is : ${PROPERTIES['USER']}"
+                    
                }
                
+            }
+        }
+        stage("Eexecute Shellscript"){
+            steps{
+                script{
+                    def worker1 = PROPERTIES['WORKER1']
+                    def worker2 = PROPERTIES['WORKER2']
+                    def username = PROPERTIES['USER']
+                    def password = PROPERTIES['PASSWORD']
+
+                    sh """
+                    echo "Check ansible version : "
+                    ansible --version 
+                    ansible -i ansible/inventory.ini worker1 -m ping \
+                    -e "ansible_user=${username} ansible_password=${password} ansible_host=${worker1}" 
+
+                    """
+
+
+                }
             }
         }
     }
