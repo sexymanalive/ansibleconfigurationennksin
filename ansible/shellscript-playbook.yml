@@ -14,6 +14,13 @@
         mode: 0777
 
     - name: Execute the shellscript 
-      shell: /bin/bash ./home/ubuntu/shellscript/testing.sh  
+      shell: /bin/bash /home/ubuntu/shellscript/testing.sh  
       args:
         creates: /home/ubuntu/shellscript/testing.sh
+    # execute shellscript 
+    - name: Execute the shellscript 
+      command: /bin/bash /home/ubuntu/shellscript/testing.sh  
+      
+
+    
+ 
