@@ -1,13 +1,9 @@
 #!/bin/bash
 
-echo "======<<Hello Shellscript>>======"
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
-mkdir -p /home/ubuntu/configuration
-cd /home/ubuntu/configuration
-
-touch /home/ubuntu/article1.txt
-touch /home/ubuntu/article2.txt
-
-echo "======<<Hello Shellscript>>======" > /home/ubuntu/article1.txt
-
-echo "Script executed successfully!"
+# Install Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
