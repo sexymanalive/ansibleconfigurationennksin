@@ -1,4 +1,4 @@
- 
+ #!/bin/bash
 echo "======<<Hello Shellscript>>====== " 
 mkdir /home/ubuntu/configuration
 cd /home/ubuntu
