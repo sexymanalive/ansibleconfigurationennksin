@@ -1,5 +1,6 @@
 - name: Execute the shellscript
   hosts: workers
+  become: true
   tasks:
     - name: Create a directory
       file:
