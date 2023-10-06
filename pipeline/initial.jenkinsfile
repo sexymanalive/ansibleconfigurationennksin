@@ -36,7 +36,7 @@ pipeline{
                     echo "Check ansible version : "
                     ansible --version 
                     ansible -i ansible/inventory.ini workers -m ping \
-                    -e "ansible_user=${username} ansible_password=${password} ansible_host=${worker1}" 
+                    -e "ansible_user=${username} ansible_password=${password}" 
 
                     """
 
