@@ -40,6 +40,13 @@ pipeline{
 
                     """
 
+                    echo "Executing playbooks!! "
+                    sh """
+                     ansible-playbook -i ansible/inventory.ini worker1 \
+                     ansible/shellscript-playbook.yml \
+                     -e "ansible_user=${username} ansible_password=${password}"    
+                    """
+
 
                 }
             }
