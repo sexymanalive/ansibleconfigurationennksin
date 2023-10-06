@@ -1,11 +1,27 @@
+
+def loadProperties() {
+    def properties = [:]
+    configFileProvider([configFile(fileId: '902a399e-56b8-422a-a93e-8503d3d7e795', variable: 'ENV_FILE')]) {
+        def envFileContent = readFile(env.ENV_FILE)
+        envFileContent.readLines().each { line ->
+            def (key, value) = line.split('=')
+            properties[key.trim()] = value.trim()
+        }
+    }
+    return properties
+}
+def PROPERTIES= [:]
 pipeline{
     agent any
 
     stages{
-        stage("Hello"){
+        stage("Load Variables "){
             steps{
+               script{
+                     PROPERTIES = loadProperties()
+                     echo "Username is : ${PROPERTIES['USER']}"
+               }
                
-                echo "Hello World!!!!!"
             }
         }
     }
