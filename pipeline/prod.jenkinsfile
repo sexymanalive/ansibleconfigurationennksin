@@ -32,10 +32,11 @@ pipeline{
             steps{
                 git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
                 
-                sh """
-                pwd 
-                ls -lrt
-                """
+                script{
+                    dir('web14-server-communication'){
+                        git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
+                    }
+                }
 
 
             }
