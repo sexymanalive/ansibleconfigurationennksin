@@ -40,12 +40,13 @@
       file:
         path: /tmp/web14-server-communication
         state: absent
+- name: Deploying the service 
+  hosts: workers
+  gather_facts: false
+  become: yes
+  tasks: 
+    - name: Using the existing books 
+      include_tasks: deploy-nexus-image.yml
        
 
-- name : Deploy serivce in all hosts 
-  hosts: workers
-  gather_facts: false 
   
-  tasks: 
-    - name: Include another  playbook
-      include: ./deploy-nexus-image.yml
