@@ -46,7 +46,8 @@ pipeline{
         }
 
         stage("Build image "){
-           script{
+          steps{
+             script{
             dir("web14-server-communication"){
                 sh """
                    echo "Checking this folder "
@@ -54,6 +55,7 @@ pipeline{
                 """
             }
            }
+          }
         }
        
        
