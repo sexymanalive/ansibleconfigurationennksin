@@ -31,10 +31,8 @@
         username: "{{nexus_repo_username}}}"
         password: "{{nexus_repo_password}}"
     - name: Push Docker image to Nexus registry
-      docker_image_push:
+      docker_image:
         name: "{{image_name}}"
-        tag: "{{image_tag}}"
-        registry_url: "{{nexus_repo_url}}"
     - name: Remove Cloned Gitlab Repository
       file:
         path: /tmp/web14-server-communication
