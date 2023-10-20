@@ -11,21 +11,35 @@ pipeline{
                 """
             }
         }
-        stage("Check Ansible"){
-            steps{
-                sh """
-                ansible --version
-                ansible -i ansible/inventory.ini workers -m ping    
-                """
-            }
-        }
+        // stage("Check Ansible"){
+        //     steps{
+        //         sh """
+        //         ansible --version
+        //         ansible -i ansible/inventory.ini workers -m ping    
+        //         """
+        //     }
+        // }
 
-        stage("Installation Docker & Docker compose "){
+        // stage("Installation Docker & Docker compose "){
+        //     steps{
+        //         sh """
+        //         ansible-playbook -i  ansible/inventory.ini ansible/installation-playbook.yml 
+        //         """
+        //     }
+        // }
+
+        stage("Git Checkout"){
             steps{
+                git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
+                
                 sh """
-                ansible-playbook -i  ansible/inventory.ini ansible/installation-playbook.yml 
+                pwd 
+                ls -lrt
                 """
+
+
             }
+
         }
        
        
