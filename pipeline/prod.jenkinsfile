@@ -63,7 +63,7 @@ pipeline{
           steps{
             
                 sh """
-                   docker tags web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
+                   docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
                 """
 
                 withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
