@@ -39,47 +39,56 @@ pipeline{
         //     }
         // }
 
-        stage("Git Checkout"){
-            steps{    
-                script{
-                    dir('web14-server-communication'){
-                        git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
-                    }
-                    sh """
-                    pwd 
-                    ls -lrt
-                    """
-                }
+        // stage("Git Checkout"){
+        //     steps{    
+        //         script{
+        //             dir('web14-server-communication'){
+        //                 git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
+        //             }
+        //             sh """
+        //             pwd 
+        //             ls -lrt
+        //             """
+        //         }
 
+
+        //     }
+
+        // }
+
+        // stage("Build image "){
+        //   steps{
+        //      script{
+        //     dir("web14-server-communication"){
+        //         sh """
+        //            echo "Checking this folder "
+        //            ls -lrt
+
+        //            docker build -t web14-reactjs .
+        //         """
+        //     }
+        //    }
+        //   }
+        // }
+        // stage("Push Image to Nexus "){
+        //   steps{
+            
+        //         sh """
+        //            docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
+
+        //            ansible-playbook -i ansible/inventory.ini ansible/pushimage-playbook.yml
+        //         """
+            
+        //   }
+        // }
+
+        stage("Deploy Image "){
+            steps{
+                sh """
+                ansible-playbook -i ansible/inventory.ini ansible/deploy-nexus-image.yml
+                """
 
             }
-
-        }
-
-        stage("Build image "){
-          steps{
-             script{
-            dir("web14-server-communication"){
-                sh """
-                   echo "Checking this folder "
-                   ls -lrt
-
-                   docker build -t web14-reactjs .
-                """
-            }
-           }
-          }
-        }
-        stage("Push Image to Nexus "){
-          steps{
-            
-                sh """
-                   docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
-
-                   ansible-playbook -i ansible/inventory.ini ansible/pushimage-playbook.yml
-                """
-            
-          }
         }
        
        
