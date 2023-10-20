@@ -15,25 +15,25 @@
 #       command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
 
 # ---
-# - name: Deploy Nexus Image
-#   hosts: workers
-#   gather_facts: false
-#   become: yes
+- name: Deploy Nexus Image
+  hosts: workers
+  gather_facts: false
+  become: yes
 
-#   tasks:
-#     - name: Pull Docker image
-#       docker_image:
-#         name: "{{ image_name }}:{{ image_tag }}"
-#         source: pull
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: "{{ image_name }}:{{ image_tag }}"
+        source: pull
 
-#     - name: Push Docker image to Nexus registry
-#       command: docker run up -d -p 3000:80 {{ image_name }}:{{ image_tag }} --name reactjscont
+    - name: Push Docker image to Nexus registry
+      command: docker run up -d -p 3000:80 {{ image_name }}:{{ image_tag }} --name reactjscont
 
-#     - name: Remove Docker image
-#       docker_image:
-#         name: "{{ image_name }}:{{ image_tag }}"
-#         state: absent
+    - name: Remove Docker image
+      docker_image:
+        name: "{{ image_name }}:{{ image_tag }}"
+        state: absent
 
 
-- name: Testing 
-  command: echo "Hello World"
+# - name: Testing 
+#   command: echo "Hello World"
