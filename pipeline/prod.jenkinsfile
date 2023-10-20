@@ -29,13 +29,15 @@ pipeline{
         // }
 
         stage("Git Checkout"){
-            steps{
-                git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
-                
+            steps{    
                 script{
                     dir('web14-server-communication'){
                         git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
                     }
+                    sh """
+                    pwd 
+                    ls -lrt
+                    """
                 }
 
 
