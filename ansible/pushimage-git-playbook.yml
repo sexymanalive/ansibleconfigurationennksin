@@ -22,6 +22,7 @@
       docker_image:
         build: 
           path: /tmp/web14-server-communication
+          dockerfile: Dockerfile
           pull: yes
         name: "{{image_name}}"  
         tag: "{{image_tag}}"
@@ -32,7 +33,8 @@
         password: "{{nexus_repo_password}}"
     - name: Push Docker image to Nexus registry
       docker_image:
-        name: "{{image_name}}"
+        name: "{{ nexus_repo_url }}/{{ image_name }}:{{ image_tag }}"
+        push: yes
     - name: Remove Cloned Gitlab Repository
       file:
         path: /tmp/web14-server-communication
