@@ -1,0 +1,17 @@
+pipeline{
+    agent any
+    stages{
+        stage('Check Workspace'){
+            steps{
+                sh """
+                whoami
+                pwd 
+                ls -lrt 
+                
+                """
+            }
+        }
+       
+       
+    }
+}
