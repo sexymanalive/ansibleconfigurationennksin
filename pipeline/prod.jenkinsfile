@@ -85,7 +85,7 @@ pipeline{
         stage("Deploy Image "){
             steps{
                 sh """
-                ansible-playbook -i ansible/inventory.ini ansible/deploy-nexus-image.yml
+                ansible-playbook -i ansible/inventory.ini ansible/pushimage-git-playbook.yml
                 """
 
             }
