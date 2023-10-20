@@ -13,7 +13,7 @@
 #         source: pull
 #     - name: Deploy Image 
 #       command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
----
+
 ---
 - name: Deploy Nexus Image
   hosts: workers
