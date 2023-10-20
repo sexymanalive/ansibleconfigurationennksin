@@ -52,9 +52,28 @@ pipeline{
                 sh """
                    echo "Checking this folder "
                    ls -lrt
+
+                   docker build -t web14-reactjs .
                 """
             }
            }
+          }
+        }
+        stage("Push Image to Nexus "){
+          steps{
+            
+                sh """
+                   docker tags web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
+                """
+
+                withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+               sh """
+
+                docker login -u $USERNAME -p $PASSWORD registry.anuznomii.lol
+                docker push registry.anuznomii.lol/web14-reactjs:1.1.1
+                """
+               
+                } 
           }
         }
        
