@@ -1,0 +1,13 @@
+---
+- hosts: worker1
+  become: yes 
+  tasks: 
+    - name: Login to the Nexus Regisry 
+      docker_login:
+        registry_url: https://registry.anuznomii.lol
+        username: "admin"
+        password: "nexus@2023"
+    - name: Push Image from Docker Registry
+      docker_image:
+        name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
+        source: push

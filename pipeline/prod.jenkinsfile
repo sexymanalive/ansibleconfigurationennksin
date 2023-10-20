@@ -34,11 +34,7 @@ pipeline{
                  withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                sh ( script: " docker login -u admin -p $PASSWORD registry.anuznomii.lol ")    
                
-          
-
-               
-    
-               
+   
                 } 
             }
         }
