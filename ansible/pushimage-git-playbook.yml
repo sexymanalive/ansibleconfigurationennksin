@@ -37,7 +37,7 @@
     - name: Push Docker image to Nexus registry
       ansible.builtin.docker_image:
         name: "{{ nexus_repo_url }}/{{ image_name }}:{{ image_tag }}"
-        source: build
+        source: push
         push: yes
     - name: Remove Cloned Gitlab Repository
       file:
