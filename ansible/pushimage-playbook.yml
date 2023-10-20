@@ -10,4 +10,4 @@
     - name: Push Image from Docker Registry
       docker_image:
         name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
-        source: push
+        push: true 
