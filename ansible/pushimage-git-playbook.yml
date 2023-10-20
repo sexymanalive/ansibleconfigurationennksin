@@ -1,0 +1,42 @@
+---
+- name: Build and Push Image to Nexus 
+  hosts: worker1
+  gather_facts: false
+  become: yes 
+
+  vars: 
+    git_repo_url: "https://gitlab.com/keoKAY/web14-server-communication.git"
+    git_repo_branch: "master"
+    nexus_repo_url: "https://registry.anuznomii.lol"
+    nexus_repo_username: "admin"
+    nexus_repo_password: "nexus@2023"
+    image_name: "registry.anuznomii.lol/web14-reactjs"
+    image_tag: "1.1.1"
+  tasks: 
+    - name: Clone Gitlab Repository 
+      git:
+        repo: "{{ git_repo_url }}"
+        dest: /tmp/web14-server-communication
+        version: "{{ git_repo_branch }}"
+    - name: Build Docker image
+      docker_image:
+        build: 
+          path: /tmp/web14-server-communication
+          pull: yes
+        name: "{{image_name}}"  
+        tag: "{{image_tag}}"
+    - name: Login to the Nexus Regisry 
+      docker_login:
+        registry_url: "{{ nexus_repo_url }}"
+        username: "{{nexus_repo_username}}}"
+        password: "{{nexus_repo_password}}"
+    - name: Push Docker image to Nexus registry
+      docker_image_push:
+        name: "{{image_name}}"
+        tag: "{{image_tag}}"
+        registry_url: "{{nexus_repo_url}}"
+    - name: Remove Cloned Gitlab Repository
+      file:
+        path: /tmp/web14-server-communication
+        state: absent
+       
