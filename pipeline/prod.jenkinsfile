@@ -32,12 +32,16 @@ pipeline{
         stage("Login Nexus "){
             steps{
                  withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-               sh """     
+               sh (
+                script: "
+                 docker login -u admin -p $PASSWORD registry.anuznomii.lol
+                "
+               )    
                
-           docker login -u admin -p $PASSWORD registry.anuznomii.lol
+          
 
                
-                """
+    
                
                 } 
             }
