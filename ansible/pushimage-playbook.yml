@@ -7,10 +7,8 @@
         registry_url: https://registry.anuznomii.lol
         username: "admin"
         password: "nexus@2023"
-    - name: Push Image to Nexus Repo 
-      docker_image:
-          name: "registry.anuznomii.lol/web14-reactjs"
-          repository: "https://registry.anuznomii.lol"
-          tag: "latest"
-          push: yes
-          state: present
+    - name: Push Docker image to Nexus registry
+      community.docker.docker_image:
+        name: registry.anuznomii.lol/web14-reactjs
+        push: yes
+       
