@@ -35,10 +35,7 @@
         username: "{{nexus_repo_username}}"
         password: "{{nexus_repo_password}}"
     - name: Push Docker image to Nexus registry
-      ansible.builtin.docker_image:
-        name: "{{ nexus_repo_url }}/{{ image_name }}:{{ image_tag }}"
-        source: push
-        push: yes
+       command: docker push {{image_name}}:{{image_tag}} 
     - name: Remove Cloned Gitlab Repository
       file:
         path: /tmp/web14-server-communication
