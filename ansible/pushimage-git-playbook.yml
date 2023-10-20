@@ -42,7 +42,7 @@
         state: absent
   
     - name: Using the existing books 
-      import_playbook: deploy-nexus-image.yml
+      include: deploy-nexus-image.yml
        
 
   
