@@ -41,8 +41,8 @@
         path: /tmp/web14-server-communication
         state: absent
   
-    - name: Using the existing books 
-      include_tasks: deploy-nexus-image.yml
+- import_playbook: deploy-nexus-image.yml
+
        
 
   

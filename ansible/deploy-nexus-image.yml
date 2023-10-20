@@ -1,16 +1,18 @@
-- name: Login to the Nexus Regisry 
-  docker_login:
-    registry_url: https://registry.anuznomii.lol
-    username: "admin"
-    password: "nexus@2023"
-- name: Pull Image from Docker Registry
-  hosts: workers
-  docker_image:
-    name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
-    source: pull
-- name: Deploy Image 
-  hosts: workers
-  command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
+
+- hosts: workers
+  become: yes 
+  tasks: 
+    - name: Login to the Nexus Regisry 
+      docker_login:
+        registry_url: https://registry.anuznomii.lol
+        username: "admin"
+        password: "nexus@2023"
+    - name: Pull Image from Docker Registry
+      docker_image:
+        name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
+        source: pull
+    - name: Deploy Image 
+      command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
 
 # ---
 # - name: Deploy Nexus Image
