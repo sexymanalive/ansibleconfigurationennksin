@@ -43,6 +43,9 @@
        
 
 - name : Deploy serivce in all hosts 
+  hosts: workers
+  gather_facts: false 
+  
   tasks: 
     - name: Include another  playbook
       include: ./deploy-nexus-image.yml
