@@ -32,7 +32,7 @@
     - name: Login to the Nexus Regisry 
       docker_login:
         registry_url: "{{nexus_repo_url}}"
-        username: "{{nexus_repo_username}}}"
+        username: "{{nexus_repo_username}}"
         password: "{{nexus_repo_password}}"
     # - name: Push Docker image to Nexus registry
     #   docker_image:
