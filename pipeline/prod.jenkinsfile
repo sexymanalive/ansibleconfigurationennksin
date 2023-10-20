@@ -23,7 +23,7 @@ pipeline{
         stage("Installation Docker & Docker compose "){
             steps{
                 sh """
-                ansible-playbook -i  ansible/inventory.ini ansible/installation-playbook.yml -vvv
+                ansible-playbook -i  ansible/inventory.ini ansible/installation-playbook.yml 
                 """
             }
         }
