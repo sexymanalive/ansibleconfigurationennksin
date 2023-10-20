@@ -41,9 +41,8 @@
         path: /tmp/web14-server-communication
         state: absent
        
---- 
+
 - name : Deploy serivce in all hosts 
   tasks: 
     - name: Include another  playbook
       include: ./deploy-nexus-image.yml
-      
