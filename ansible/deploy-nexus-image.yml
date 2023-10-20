@@ -1,16 +1,35 @@
 
-- hosts: workers
-  become: yes 
-  tasks: 
-    - name: Login to the Nexus Regisry 
-      docker_login:
-        registry_url: https://registry.anuznomii.lol
-        username: "admin"
-        password: "nexus@2023"
-    - name: Pull Image from Docker Registry
+# - hosts: workers
+#   become: yes 
+#   tasks: 
+#     - name: Login to the Nexus Regisry 
+#       docker_login:
+#         registry_url: https://registry.anuznomii.lol
+#         username: "admin"
+#         password: "nexus@2023"
+#     - name: Pull Image from Docker Registry
+#       docker_image:
+#         name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
+#         source: pull
+#     - name: Deploy Image 
+#       command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
+---
+---
+- name: Deploy Nexus Image
+  hosts: workers
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Pull Docker image
       docker_image:
-        name: "registry.anuznomii.lol/web14-reactjs:1.1.1"
+        name: "{{ image_name }}:{{ image_tag }}"
         source: pull
-    - name: Deploy Image 
-      command: docker run -d -p 3000:80 registry.anuznomii.lol/web14-reactjs:1.1.1
-  
+
+    - name: Push Docker image to Nexus registry
+      command: docker run up -d -p 3000:80 {{ image_name }}:{{ image_tag }} --name reactjscont
+
+    - name: Remove Docker image
+      docker_image:
+        name: "{{ image_name }}:{{ image_tag }}"
+        state: absent
