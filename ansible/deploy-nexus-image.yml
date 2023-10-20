@@ -13,3 +13,4 @@
         source: pull
     - name: Deploy Image 
       command: docker run -d -p 3000:80 registry.anuznomii.lol/reactjs-private:1.1.1
+  

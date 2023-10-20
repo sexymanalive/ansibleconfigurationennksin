@@ -35,9 +35,15 @@
         username: "{{nexus_repo_username}}"
         password: "{{nexus_repo_password}}"
     - name: Push Docker image to Nexus registry
-      command: docker push {{image_name}}:{{image_tag}} 
+      command: docker push {{image_name}}:{{image_tag}}  
     - name: Remove Cloned Gitlab Repository
       file:
         path: /tmp/web14-server-communication
         state: absent
        
+--- 
+- name : Deploy serivce in all hosts 
+  tasks: 
+    - name: Include another  playbook
+      include: ./deploy-nexus-image.yml
+      
