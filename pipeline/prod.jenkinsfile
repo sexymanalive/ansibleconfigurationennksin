@@ -44,6 +44,17 @@ pipeline{
             }
 
         }
+
+        stage("Build image "){
+           script{
+            dir("web14-server-communication"){
+                sh """
+                   echo "Checking this folder "
+                   ls -lrt
+                """
+            }
+           }
+        }
        
        
     }
