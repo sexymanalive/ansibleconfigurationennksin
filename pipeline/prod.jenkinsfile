@@ -65,11 +65,10 @@ pipeline{
                 sh """
                    docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
                 """
-
                 withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-               sh """
-
-                docker login -u $USERNAME -p $PASSWORD registry.anuznomii.lol
+               sh """     
+            echo $PASSWORD | docker login -u admin --password-stdin registry.anuznomii.lol
+            
                 docker push registry.anuznomii.lol/web14-reactjs:1.1.1
                 """
                
