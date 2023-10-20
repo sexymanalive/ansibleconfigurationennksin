@@ -29,64 +29,58 @@ pipeline{
         // }
 
 
-        stage("Login Nexus "){
-            steps{
-                 withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-               sh ( script: " docker login -u admin -p $PASSWORD registry.anuznomii.lol ")    
+        // stage("Login Nexus "){
+        //     steps{
+        //          withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+        //        sh ( script: " docker login -u admin -p $PASSWORD registry.anuznomii.lol ")    
                
    
-                } 
+        //         } 
+        //     }
+        // }
+
+        stage("Git Checkout"){
+            steps{    
+                script{
+                    dir('web14-server-communication'){
+                        git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
+                    }
+                    sh """
+                    pwd 
+                    ls -lrt
+                    """
+                }
+
+
             }
+
         }
 
-        // stage("Git Checkout"){
-        //     steps{    
-        //         script{
-        //             dir('web14-server-communication'){
-        //                 git branch: 'master', url:'https://gitlab.com/keoKAY/web14-server-communication.git'
-        //             }
-        //             sh """
-        //             pwd 
-        //             ls -lrt
-        //             """
-        //         }
+        stage("Build image "){
+          steps{
+             script{
+            dir("web14-server-communication"){
+                sh """
+                   echo "Checking this folder "
+                   ls -lrt
 
-
-        //     }
-
-        // }
-
-        // stage("Build image "){
-        //   steps{
-        //      script{
-        //     dir("web14-server-communication"){
-        //         sh """
-        //            echo "Checking this folder "
-        //            ls -lrt
-
-        //            docker build -t web14-reactjs .
-        //         """
-        //     }
-        //    }
-        //   }
-        // }
-        // stage("Push Image to Nexus "){
-        //   steps{
+                   docker build -t web14-reactjs .
+                """
+            }
+           }
+          }
+        }
+        stage("Push Image to Nexus "){
+          steps{
             
-        //         sh """
-        //            docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
-        //         """
-        //         withCredentials([usernamePassword(credentialsId: 'nexus_credential', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-        //        sh """     
-               
-        //    docker login -u admin -p $PASSWORD registry.anuznomii.lol
+                sh """
+                   docker tag web14-reactjs registry.anuznomii.lol/web14-reactjs:1.1.1 
 
-        //         docker push registry.anuznomii.lol/web14-reactjs:1.1.1
-        //         """
-               
-        //         } 
-        //   }
-        // }
+                   ansible-playbook -i ansible/inventory.ini ansible/pushimage-playbook.yml
+                """
+            
+          }
+        }
        
        
     }
